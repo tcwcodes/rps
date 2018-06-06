@@ -71,6 +71,7 @@ database.ref('players').on('value', function(childSnapshot) {
             userID: playerOneUserID,
         }
         console.log(playerOne);
+        $('#player-one-div').html("<h2> Player 1 <br> Username: " + playerOneUserName + "</h2>");
     } if (childSnapshot.hasChild('two')) {
         playerTwoUserName = childSnapshot.val().two.Username;
         console.log("playerTwoUserName: " + playerTwoUserName);
@@ -81,6 +82,7 @@ database.ref('players').on('value', function(childSnapshot) {
             userID: playerTwoUserID,
         }
         console.log(playerTwo);
+        $('#player-two-div').html("<h2> Player 2 <br> Username: " + playerTwoUserName + "</h2>");
     } else {}
 });
 
