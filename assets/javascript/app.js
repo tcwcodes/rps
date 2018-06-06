@@ -83,6 +83,12 @@ database.ref('players').on('value', function(childSnapshot) {
         }
         console.log(playerTwo);
         $('#player-two-div').html("<h2> Player 2 <br> Username: " + playerTwoUserName + "</h2>");
+    } if (!childSnapshot.hasChild('one')) {
+        $('#player-one-div').empty();
+        console.log('empty1');
+    } if (!childSnapshot.hasChild('two')) {
+        $('#player-two-div').empty();
+        console.log('empty2');
     } else {}
 });
 
