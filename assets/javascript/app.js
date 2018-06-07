@@ -10,7 +10,7 @@ var config = {
     storageBucket: "rockpaperscissors-2ba5a.appspot.com",
     messagingSenderId: "527058628030"
   };
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
 
 var database = firebase.database();
 var connectionsRef = database.ref('/connections');
@@ -20,7 +20,7 @@ var thisUserID = "";
 var playerOne = "";
 var playerTwo = "";
 
-// Monitor connections, log UserID of new connection, remove from users connections on disconnect
+// Monitor connections, get UserID of newest connection, remove from users connected on disconnect
 connectedRef.on('value', function(snap) {
     if (snap.val()) {
         var con = connectionsRef.push(true);
@@ -32,23 +32,22 @@ connectedRef.on('value', function(snap) {
                     if (thisUserID === childSnapshot.val().one.UserID) {
                         var ref1 = database.ref('players/one');
                         ref1.onDisconnect().remove();
-                    } else {}
+                    } else {};
             } if (childSnapshot.hasChild('two')) {
                     if (thisUserID === childSnapshot.val().two.UserID) {
                         var ref2 = database.ref('players/two');
                         ref2.onDisconnect().remove();
-                    } else {}
+                    } else {};
             } else {};
         });
-    }
+    };
 });
 
 // Log number of users connected 
-connectionsRef.on('value', function(snap) {
-    usersConnected = snap.numChildren();
-    // console.log("Users connected: " + usersConnected);
-    // console.log(snap.node_.children_.root_.key);
-})
+// connectionsRef.on('value', function(snap) {
+//     usersConnected = snap.numChildren();
+//     console.log("Users connected: " + usersConnected);
+// });
 
 // On value change, store player info in object
 database.ref('players').on('value', function(childSnapshot) {
@@ -58,7 +57,7 @@ database.ref('players').on('value', function(childSnapshot) {
         playerOne = {
             userName: playerOneUserName,
             userID: playerOneUserID,
-        }
+        };
         console.log('Player one is connected:');
         console.log(playerOne);
         $('#player-one-div').html("<h2> Player 1 <br> Username: " + playerOneUserName + "</h2>");
@@ -68,7 +67,7 @@ database.ref('players').on('value', function(childSnapshot) {
         playerTwo = {
             userName: playerTwoUserName,
             userID: playerTwoUserID,
-        }
+        };
         console.log('Player two is connected:');
         console.log(playerTwo);
         $('#player-two-div').html("<h2> Player 2 <br> Username: " + playerTwoUserName + "</h2>");
@@ -80,7 +79,7 @@ database.ref('players').on('value', function(childSnapshot) {
         playerTwo = "";
         console.log('Player two is not connected')
         $('#player-two-div').empty();
-    } else {}
+    } else {};
 });
 
 $('body').on('click', '#submit-button', function(event) {
