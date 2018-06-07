@@ -49,7 +49,7 @@ connectedRef.on('value', function(snap) {
 //     console.log("Users connected: " + usersConnected);
 // });
 
-// On value change, store player info in object
+// When player joins or quits game, store player info in object, update html
 database.ref('players').on('value', function(childSnapshot) {
     if (childSnapshot.hasChild('one')) {
         playerOneUserName = childSnapshot.val().one.Username;
@@ -82,6 +82,7 @@ database.ref('players').on('value', function(childSnapshot) {
     } else {};
 });
 
+// When user clicks submit, add them as player one, then player two, then whichever available; notify if full
 $('body').on('click', '#submit-button', function(event) {
     event.preventDefault();
     var userNameInput = $('#name-input').val().trim();  
